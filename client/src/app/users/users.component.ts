@@ -1,15 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ApiService } from '../api-service.service';
+import { UserService } from './user.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-users',
   standalone: true,
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
+  providers: [UserService],
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css'] // Corrected to 'styleUrls'
 })
@@ -17,17 +20,18 @@ export class UsersComponent implements OnInit {
   users: any[] = []; // Consider defining a User type for better type checking
   newUser = { username: '', email: '' };
 
-  constructor(private apiService: ApiService) { }
+  constructor(private apiService: UserService) { }
 
   ngOnInit() {
-    this.getUsers();
+    this.getUser();
   }
 
-  getUsers(): void {
-    this.apiService.getUsers().subscribe(
-      data => this.users = data,
+  getUser(): void {
+    this.apiService.getUser().subscribe(
+      data => this.users = [data],
       error => {
         console.error(error);
+        document.write(JSON.stringify(error));
         // Consider adding more robust error handling here
       }
     );
