@@ -1,0 +1,17 @@
+<h2>Create User</h2>
+    <form>
+      <label for="username">Username:</label>
+      <input type="text" id="username" [(ngModel)]="newUser.username" name="username">
+  
+      <label for="email">Email:</label>
+      <input type="email" id="email" [(ngModel)]="newUser.email" name="email">
+  
+      <button type="submit">Create User</button>
+    </form>
+  
+    <h2>Users List</h2>
+    <ul>
+      <li *ngFor="let user of users">
+        {{ user.username }} ({{ user.email }})
+      </li>
+    </ul>
